@@ -1,20 +1,38 @@
 <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="100" height="100" rx="24" fill="#0B0F19" />
+  <!-- High-contrast crisp white background card -->
+  <rect width="100" height="100" rx="26" fill="#FFFFFF" />
+  <rect x="1.5" y="1.5" width="97" height="97" rx="24.5" stroke="#E2E8F0" stroke-width="3" />
+
   <defs>
-    <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#FDE68A" />
-      <stop offset="45%" stop-color="#D4AF37" />
-      <stop offset="100%" stop-color="#92400E" />
+    <linearGradient id="favGold1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="50%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#78350F" />
     </linearGradient>
-    <linearGradient id="goldAccent" x1="0%" y1="100%" x2="100%" y2="0%">
-      <stop offset="0%" stop-color="#CA8A04" />
-      <stop offset="60%" stop-color="#FBBF24" />
+    <linearGradient id="favGold2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#B45309" />
+      <stop offset="50%" stop-color="#F59E0B" />
       <stop offset="100%" stop-color="#FEF08A" />
     </linearGradient>
+    <linearGradient id="favNavy" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
   </defs>
-  <polygon points="50,16 66,30 66,86 50,72" fill="url(#goldPrimary)" />
-  <polygon points="50,16 34,30 34,86 50,72" fill="url(#goldAccent)" opacity="0.85" />
-  <polygon points="34,44 20,54 20,86 34,76" fill="url(#goldPrimary)" />
-  <polygon points="66,44 80,54 80,86 66,76" fill="url(#goldAccent)" opacity="0.9" />
-  <polygon points="50,10 54,16 50,22 46,16" fill="#FFFFFF" />
+
+  <!-- Left Golden Architectural Tower (Monogram P/N) -->
+  <polygon points="26,82 26,30 38,20 38,82" fill="url(#favGold1)" />
+  
+  <!-- Center Main High-Rise -->
+  <polygon points="38,82 38,14 52,14 52,82" fill="url(#favGold2)" />
+  
+  <!-- Right Architectural Facet & Roof Canopy -->
+  <path d="M52 24 L74 38 L74 52 L52 38 Z" fill="url(#favNavy)" />
+  <path d="M52 46 L74 60 L74 82 L52 82 Z" fill="url(#favNavy)" />
+
+  <!-- House Rooftop Silhouette -->
+  <polygon points="38,58 52,46 66,58 60,58 52,51 44,58" fill="url(#favGold1)" />
+
+  <!-- Pinpoint Location Marker -->
+  <circle cx="72" cy="74" r="5" fill="#D97706" />
 </svg>
