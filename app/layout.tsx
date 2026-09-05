@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Outfit, Plus_Jakarta_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
+import { JsonLd } from "@/components/shared/JsonLd";
 
 const outfit = Outfit({
   variable: "--font-outfit",
@@ -24,42 +25,73 @@ const ibmMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  themeColor: "#0B0F19",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
+
 export const metadata: Metadata = {
-  title: "Prime Nagpur Properties — Plots, Flats & Lands in Nagpur | NMRDA & RERA Verified",
-  description: "Nagpur's #1 verified property advisory. Discover NMRDA approved residential plots, luxury flats, agricultural lands & commercial spaces in Wardha Road, Besa, Civil Lines, Manish Nagar & MIHAN Nagpur.",
+  title: {
+    default: "Properties Nagpur | Verified Plots, Flats, Homes & Lands in Nagpur",
+    template: "%s | Properties Nagpur",
+  },
+  description:
+    "Nagpur's #1 verified real estate portal. Search 500+ NMRDA & RERA approved residential plots, luxury flats, homes, agricultural lands & commercial corridors in Wardha Road, Besa-Pipla, Civil Lines, Dharampeth, Manish Nagar & MIHAN Nagpur.",
   keywords: [
-    "Plots in Nagpur",
-    "Properties in Nagpur",
-    "Flats in Besa Nagpur",
-    "Wardha Road NA Plots",
-    "Civil Lines Nagpur Luxury Homes",
-    "MIHAN SEZ Commercial Land",
-    "NMRDA approved plots Nagpur",
-    "RERA registered projects Nagpur",
-    "Dharampeth flats Nagpur",
-    "Farmland Hingna Nagpur",
-    "Real Estate Agent Nagpur",
-    "Prime Nagpur Properties",
-    "Bhoomi Nagpur Real Estate"
+    "properties nagpur",
+    "nagpur homes",
+    "nagpur properties",
+    "plots in nagpur",
+    "flats in nagpur",
+    "real estate nagpur",
+    "buy residential plot nagpur",
+    "nmrda plots in besa pipla",
+    "wardha road plots nagpur",
+    "luxury apartments civil lines nagpur",
+    "dharampeth flats",
+    "mihan commercial land",
+    "farmland hingna nagpur",
+    "real estate agent nagpur",
+    "rera approved projects in nagpur",
+    "prime nagpur properties",
+    "properties in nagpur for sale",
+    "best property in nagpur",
   ],
-  authors: [{ name: "Prime Nagpur Properties (Bhoomi Advisory)" }],
-  creator: "Prime Nagpur Properties",
-  publisher: "Prime Nagpur Properties",
+  authors: [{ name: "Properties Nagpur Advisory Team" }],
+  creator: "Properties Nagpur",
+  publisher: "Properties Nagpur",
   metadataBase: new URL("https://primenagpurproperties.com"),
   alternates: {
     canonical: "/",
   },
+  other: {
+    "geo.region": "IN-MH",
+    "geo.placename": "Nagpur",
+    "geo.position": "21.1458;79.0882",
+    ICBM: "21.1458, 79.0882",
+    rating: "General",
+    "revisit-after": "1 days",
+  },
   openGraph: {
-    title: "Prime Nagpur Properties — Verified Plots, Flats & Commercial Real Estate",
-    description: "Search 500+ verified plots, luxury apartments, and commercial lands across Nagpur with 100% legal title assurance.",
+    title: "Properties Nagpur | Verified Plots, Flats, Homes & Lands in Nagpur",
+    description:
+      "Search 500+ NMRDA & RERA approved residential plots, luxury flats, and commercial lands in Nagpur with 100% legal title assurance.",
     url: "https://primenagpurproperties.com",
-    siteName: "Prime Nagpur Properties",
+    siteName: "Properties Nagpur",
     images: [
+      {
+        url: "/images/logo_with_bg.png",
+        width: 1024,
+        height: 1024,
+        alt: "Properties Nagpur Official Brand Logo & Marketplace",
+      },
       {
         url: "/images/hero_estate.jpg",
         width: 1200,
         height: 630,
-        alt: "Prime Nagpur Properties — Premier Real Estate Marketplace",
+        alt: "Properties Nagpur — Premier Real Estate Showcase",
       },
     ],
     locale: "en_IN",
@@ -67,21 +99,31 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Prime Nagpur Properties | Verified Plots & Flats in Nagpur",
-    description: "Discover top residential plots and luxury apartments in Nagpur with instant RERA/NMRDA verification.",
-    images: ["/images/hero_estate.jpg"],
+    title: "Properties Nagpur | Verified Plots, Flats & Homes in Nagpur",
+    description:
+      "Explore high-growth NMRDA & RERA approved plots and luxury homes across Wardha Road, Besa, Civil Lines & MIHAN Nagpur.",
+    images: ["/images/logo_with_bg.png"],
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
   icons: {
     icon: [
+      { url: "/images/logo_transparent.png", type: "image/png" },
+      { url: "/favicon.png", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
-    shortcut: ["/favicon.svg"],
+    shortcut: ["/images/logo_transparent.png"],
     apple: [
-      { url: "/favicon.svg" },
+      { url: "/images/logo_transparent.png", sizes: "180x180", type: "image/png" },
     ],
   },
 };
@@ -97,6 +139,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${outfit.variable} ${plusJakarta.variable} ${ibmMono.variable} h-full antialiased`}
     >
+      <head>
+        <JsonLd />
+      </head>
       <body
         suppressHydrationWarning
         className="min-h-full flex flex-col font-sans bg-[#F8FAFC] text-slate-900 selection:bg-clay selection:text-white"
@@ -107,4 +152,3 @@ export default function RootLayout({
     </html>
   );
 }
-

@@ -8,6 +8,7 @@ import { HowItWorks } from "@/components/sections/HowItWorks";
 import { DarkStatsBand } from "@/components/sections/DarkStatsBand";
 import { InsightsBlog } from "@/components/sections/InsightsBlog";
 import { Testimonials } from "@/components/sections/Testimonials";
+import { NagpurSeoHub } from "@/components/sections/NagpurSeoHub";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 
 export default function HomePage() {
@@ -22,6 +23,7 @@ export default function HomePage() {
       <HowItWorks />
       <DarkStatsBand />
       <InsightsBlog />
+      <NagpurSeoHub />
       <Testimonials />
       <CtaBanner />
     </>

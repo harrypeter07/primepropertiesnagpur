@@ -1,9 +1,10 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 interface BhoomiLogoProps {
-  variant?: "full" | "mark" | "horizontal";
+  variant?: "full" | "mark" | "horizontal" | "badge";
   theme?: "light" | "dark" | "auto";
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
@@ -11,112 +12,70 @@ interface BhoomiLogoProps {
 
 export const BhoomiLogo: React.FC<BhoomiLogoProps> = ({
   variant = "full",
-  theme = "auto",
   size = "md",
   className = "",
 }) => {
-  const markSize = {
-    sm: "w-8 h-8",
-    md: "w-9 h-9",
-    lg: "w-11 h-11",
-    xl: "w-14 h-14",
+  const sizeMap = {
+    sm: { width: 36, height: 36, container: "h-9", markH: "h-9 w-9" },
+    md: { width: 44, height: 44, container: "h-11", markH: "h-11 w-11" },
+    lg: { width: 56, height: 56, container: "h-14", markH: "h-14 w-14" },
+    xl: { width: 72, height: 72, container: "h-18", markH: "h-18 w-18" },
   }[size];
 
-  const textSize = {
-    sm: "text-sm",
-    md: "text-base",
-    lg: "text-xl",
-    xl: "text-2xl",
-  }[size];
-
-  const subtextSize = {
-    sm: "text-[8px] tracking-[0.2em]",
-    md: "text-[9px] tracking-[0.24em]",
-    lg: "text-[10px] tracking-[0.28em]",
-    xl: "text-[12px] tracking-[0.32em]",
-  }[size];
-
-  // Architectural Luxury Monogram Emblem (Interlocking Geometric Gold Facets)
-  const LogoMark = (
-    <div
-      className={`relative ${markSize} shrink-0 rounded-xl p-1 flex items-center justify-center transition-transform duration-300 group-hover:scale-105 shadow-sm overflow-hidden bg-slate-950 border border-amber-400/30`}
-    >
-      <svg
-        viewBox="0 0 100 100"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full"
-      >
-        <defs>
-          <linearGradient id="goldPrimary" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#FDE68A" />
-            <stop offset="45%" stopColor="#D4AF37" />
-            <stop offset="100%" stopColor="#92400E" />
-          </linearGradient>
-          <linearGradient id="goldAccent" x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="#CA8A04" />
-            <stop offset="60%" stopColor="#FBBF24" />
-            <stop offset="100%" stopColor="#FEF08A" />
-          </linearGradient>
-        </defs>
-
-        {/* Central Geometric High-Rise Tower */}
-        <polygon
-          points="50,12 66,26 66,88 50,74"
-          fill="url(#goldPrimary)"
-        />
-        <polygon
-          points="50,12 34,26 34,88 50,74"
-          fill="url(#goldAccent)"
-          opacity="0.85"
-        />
-
-        {/* Left Architectural Stepped Wing */}
-        <polygon
-          points="34,42 20,52 20,88 34,78"
-          fill="url(#goldPrimary)"
-        />
-
-        {/* Right Architectural Stepped Wing */}
-        <polygon
-          points="66,42 80,52 80,88 66,78"
-          fill="url(#goldAccent)"
-          opacity="0.9"
-        />
-
-        {/* Apex Pinnacle Diamond Star */}
-        <polygon
-          points="50,6 54,12 50,18 46,12"
-          fill="#FFFFFF"
-        />
-      </svg>
-    </div>
-  );
+  const logoSrc =
+    variant === "badge"
+      ? "/images/logo_with_bg.png"
+      : "/images/logo_transparent.png";
 
   if (variant === "mark") {
-    return <div className={`inline-flex items-center ${className}`}>{LogoMark}</div>;
+    return (
+      <div className={`relative ${sizeMap.markH} shrink-0 transition-transform duration-300 group-hover:scale-105 ${className}`}>
+        <Image
+          src={logoSrc}
+          alt="Properties Nagpur Logo"
+          fill
+          priority
+          className="object-contain"
+          sizes="72px"
+        />
+      </div>
+    );
+  }
+
+  if (variant === "badge") {
+    return (
+      <div className={`relative rounded-2xl overflow-hidden shadow-lg border border-slate-700/60 transition-transform duration-300 group-hover:scale-105 ${className}`}>
+        <Image
+          src="/images/logo_with_bg.png"
+          alt="Properties Nagpur"
+          width={sizeMap.width * 2}
+          height={sizeMap.height * 2}
+          priority
+          className="object-contain rounded-2xl"
+        />
+      </div>
+    );
   }
 
   return (
-    <div className={`inline-flex items-center gap-2.5 select-none ${className}`}>
-      {LogoMark}
+    <div className={`inline-flex items-center gap-3 select-none ${className}`}>
+      <div className={`relative ${sizeMap.markH} shrink-0 transition-transform duration-300 group-hover:scale-105`}>
+        <Image
+          src={logoSrc}
+          alt="Properties Nagpur Logo Icon"
+          fill
+          priority
+          className="object-contain"
+          sizes="72px"
+        />
+      </div>
 
       <div className="flex flex-col text-left">
-        <span
-          className={`font-heading font-extrabold leading-none tracking-tight ${textSize} ${
-            theme === "dark"
-              ? "text-white"
-              : theme === "light"
-              ? "text-slate-900"
-              : "text-inherit"
-          }`}
-        >
-          PRIME NAGPUR
+        <span className="font-heading font-extrabold leading-none tracking-tight text-white text-base sm:text-lg">
+          PROPERTIES <span className="text-amber-400">NAGPUR</span>
         </span>
-        <span
-          className={`font-mono-custom font-bold text-amber-600 ${subtextSize} mt-1`}
-        >
-          PROPERTIES
+        <span className="font-mono-custom font-bold text-amber-500/90 text-[8px] sm:text-[9px] tracking-[0.24em] uppercase mt-1">
+          DISCOVER · INVEST · BELONG
         </span>
       </div>
     </div>
