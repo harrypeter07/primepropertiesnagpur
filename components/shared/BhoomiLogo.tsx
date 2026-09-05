@@ -4,7 +4,7 @@ import React from "react";
 import Image from "next/image";
 
 interface BhoomiLogoProps {
-  variant?: "full" | "mark" | "horizontal" | "badge";
+  variant?: "full" | "mark" | "badge" | "banner";
   theme?: "light" | "dark" | "auto";
   size?: "sm" | "md" | "lg" | "xl";
   className?: string;
@@ -13,68 +13,67 @@ interface BhoomiLogoProps {
 export const BhoomiLogo: React.FC<BhoomiLogoProps> = ({
   variant = "full",
   size = "md",
+  theme = "auto",
   className = "",
 }) => {
   const sizeMap = {
-    sm: { width: 36, height: 36, container: "h-9", markH: "h-9 w-9" },
-    md: { width: 44, height: 44, container: "h-11", markH: "h-11 w-11" },
-    lg: { width: 56, height: 56, container: "h-14", markH: "h-14 w-14" },
-    xl: { width: 72, height: 72, container: "h-18", markH: "h-18 w-18" },
+    sm: {
+      box: "w-10 h-10 sm:w-11 sm:h-11",
+      title: "text-sm sm:text-base",
+      subtitle: "text-[8px] sm:text-[9px] tracking-[0.2em]",
+    },
+    md: {
+      box: "w-12 h-12 sm:w-14 sm:h-14",
+      title: "text-base sm:text-lg",
+      subtitle: "text-[9px] sm:text-[10px] tracking-[0.22em]",
+    },
+    lg: {
+      box: "w-16 h-16 sm:w-20 sm:h-20",
+      title: "text-xl sm:text-2xl",
+      subtitle: "text-[11px] sm:text-[12px] tracking-[0.24em]",
+    },
+    xl: {
+      box: "w-24 h-24 sm:w-28 sm:h-28",
+      title: "text-2xl sm:text-3xl",
+      subtitle: "text-[12px] sm:text-[14px] tracking-[0.26em]",
+    },
   }[size];
 
-  const logoSrc =
-    variant === "badge"
-      ? "/images/logo_with_bg.png"
-      : "/images/logo_transparent.png";
+  // Crisp White Background Logo Emblem Card
+  const LogoCard = (
+    <div
+      className={`relative ${sizeMap.box} shrink-0 bg-white rounded-xl sm:rounded-2xl p-1 shadow-md border border-white/90 overflow-hidden flex items-center justify-center transition-all duration-300 group-hover:scale-105 group-hover:shadow-lg`}
+    >
+      <Image
+        src="/images/logo_with_bg.png"
+        alt="Properties Nagpur Official Logo"
+        fill
+        priority
+        className="object-contain p-0.5 rounded-lg"
+        sizes="(max-width: 768px) 60px, 120px"
+      />
+    </div>
+  );
 
-  if (variant === "mark") {
-    return (
-      <div className={`relative ${sizeMap.markH} shrink-0 transition-transform duration-300 group-hover:scale-105 ${className}`}>
-        <Image
-          src={logoSrc}
-          alt="Properties Nagpur Logo"
-          fill
-          priority
-          className="object-contain"
-          sizes="72px"
-        />
-      </div>
-    );
+  if (variant === "mark" || variant === "badge") {
+    return <div className={`inline-flex items-center ${className}`}>{LogoCard}</div>;
   }
 
-  if (variant === "badge") {
-    return (
-      <div className={`relative rounded-2xl overflow-hidden shadow-lg border border-slate-700/60 transition-transform duration-300 group-hover:scale-105 ${className}`}>
-        <Image
-          src="/images/logo_with_bg.png"
-          alt="Properties Nagpur"
-          width={sizeMap.width * 2}
-          height={sizeMap.height * 2}
-          priority
-          className="object-contain rounded-2xl"
-        />
-      </div>
-    );
-  }
+  const isDarkText = theme === "light";
 
   return (
     <div className={`inline-flex items-center gap-3 select-none ${className}`}>
-      <div className={`relative ${sizeMap.markH} shrink-0 transition-transform duration-300 group-hover:scale-105`}>
-        <Image
-          src={logoSrc}
-          alt="Properties Nagpur Logo Icon"
-          fill
-          priority
-          className="object-contain"
-          sizes="72px"
-        />
-      </div>
+      {LogoCard}
 
-      <div className="flex flex-col text-left">
-        <span className="font-heading font-extrabold leading-none tracking-tight text-white text-base sm:text-lg">
+      <div className="flex flex-col text-left justify-center">
+        <span
+          className={`font-heading font-extrabold leading-none tracking-tight ${sizeMap.title} ${
+            isDarkText ? "text-slate-900" : "text-white"
+          }`}
+        >
           PROPERTIES <span className="text-amber-400">NAGPUR</span>
         </span>
-        <span className="font-mono-custom font-bold text-amber-500/90 text-[8px] sm:text-[9px] tracking-[0.24em] uppercase mt-1">
+        <span className={`font-mono-custom font-bold text-amber-500/95 ${sizeMap.subtitle} uppercase mt-1`}>
           DISCOVER · INVEST · BELONG
         </span>
       </div>
